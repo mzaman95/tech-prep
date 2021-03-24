@@ -14,6 +14,14 @@
 
 - **Huge Ecosystem of Libraries to Choose From**  React provides you the freedom to choose the tools, libraries, and architecture for developing an application based on your requirements.  
 
+**2. Describe the thought process when building an application with React.**
+
+1. **Break the UI into a component hierarchy.** The first thing you’ll want to do is to draw boxes around every component (and subcomponent) in the mock and give them all names. To decide what should be its own component: use the same techniques for deciding if you should create a new function or object. One such technique is the **single responsibility principle**, that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents.Separate your UI into components, where each component matches one piece of your data model.
+2. **Build a Static Version in React.** Create a version with only props and no state. In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up and write tests as you build. At the end of this step, you’ll have a library of reusable components that render your data model. The components will only have `render()` methods since this is a static version of your app.
+3. **Identify The Minimal (but complete) Representation Of UI State**
+4. **Identify Where Your State Should Live**
+5. **Add Inverse Data Flow**
+
 ## JSX
 
 **1. What does JSX stand for?** JavaScript XML
@@ -705,6 +713,447 @@ class LoggingButton extends React.Component {
 
 In both cases, the e argument representing the React event will be passed as a second argument after the ID. With an arrow function, we have to pass it explicitly, but with bind any further arguments are automatically forwarded.
 
+## Conditional Rendering
+
+**1. How can you achieve conditional rendering in React?**
+
+It is the same as JS. Here are 7 possibilities:
+
+1. Using an `if-else` statement.
+2. You can use variables to store elements (**element variables**). This can help you conditionally render a part of the component while the rest of the output doesn’t change.
+3. Using a `switch` statement.
+4. Using **conditional/ternary operators**: `condition ? true : false`
+5. Using **short circuit evaluation**: `{condition && <tag>content</tag>}`
+6. Using enhanced JSX libraries (ex. the babel plugin JSX Control Statements) Note that this way is not recommended.
+7. Using immediately invoked function expressions (IIFEs)
+
+```javascript
+(function () {
+  // statements
+})();
+```
+
+Remember that whenever conditions become too complex, it might be a good time to extract a component.
+
+**2. How do you prevent a component from rendering in React?**
+
+In rare cases you might want a component to hide itself even though it was rendered by another component. To do this return `null` instead of its render output.
+
+```javascript
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+```
+
+## Lists & Keys
+
+**1. How can you render multiple components from an array?** 
+
+You can loop through an array using the JS map function.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li>{number}</li>
+);
+
+// rendering:
+ReactDOM.render(
+  <ul>{listItems}</ul>,
+  document.getElementById('root')
+);
+```
+
+Usually you would render lists inside a component. A **key** is required in lists. A “key” is a special string attribute you need to include when creating lists of elements.
+
+A good rule of thumb is that elements inside the `map()` call need keys.
+
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+
+**2. What is the purpose of keys?**
+
+Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. 
+
+**3. What is the best way to pick a key?**
+
+The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. 
+
+```javascript
+const todoItems = todos.map((todo) =>
+  <li key={todo.id}>
+    {todo.text}
+  </li>
+);
+```
+
+**4. Why is using item index's not recommended as keys?**
+
+Its not recommended to use indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state. 
+
+It may break your application and display wrong data!
+
+A key is the only thing React uses to identify DOM elements. What happens if you push an item to the list or remove something in the middle? If the key is same as before React assumes that the DOM element represents the same component as before. But that is no longer true.
+
+**5. What does React use as default as a key?**
+
+If you choose not to assign an explicit key to list items then React will default to using indexes as keys.
+
+**6. Do keys need to be unique globally?** 
+
+No.Keys used within arrays should be unique among their siblings. However they don’t need to be globally unique. We can use the same keys when we produce two different arrays.
+
+**7. How do you pass keys to your components?** 
+
+Keys serve as a hint to React but they don’t get passed to your components. If you need the same value in your component, pass it explicitly as a prop with a different name. In the example below,  the Post component can read `props.id`, but not `props.key`.
+
+```javascript
+const content = posts.map((post) =>
+  <Post
+    key={post.id}
+    id={post.id}
+    title={post.title} />
+);
+```
+## Forms
+
+**1. What is a controlled component?**
+
+In HTML, form elements such as `<input>`, `<textarea>`, and `<select>` typically maintain their own state and update it based on user input. In React, mutable state is typically kept in the state property of components, and only updated with `setState()`.
+
+We can combine the two by making the React state be the “single source of truth”. Then the React component that renders a form also controls what happens in that form on subsequent user input. An input form element whose value is controlled by React in this way is called a “controlled component”.
+
+With a controlled component, the input’s value is always driven by the React state. While this means you have to type a bit more code, you can now pass the value to other UI elements too, or reset it from other event handlers.
+
+```javascript
+/*
+Since the value attribute is set on our form element, the displayed value will always be this.state.value, making the React state the source of truth. Since handleChange runs on every keystroke to update the React state, the displayed value will update as the user types.
+*/
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+**2. How does the textarea tag differ in HTML vs React?**
+
+In HTML, a `<textarea>` element defines its text by its children:
+
+```html
+<textarea>
+  Hello there, this is some text in a text area
+</textarea>
+```
+
+In React, a `<textarea>` uses a value attribute instead. This way, a form using a `<textarea>` can be written very similarly to a form that uses a single-line input:
+
+```javascript
+class EssayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Please write an essay about your favorite DOM element.'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('An essay was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Essay:
+          <textarea value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+**2. How does the select tag differ in HTML vs React?**
+
+In HTML, `<select>` creates a drop-down list. For example, this HTML creates a drop-down list of flavors:
+
+```html
+<select>
+  <option value="grapefruit">Grapefruit</option>
+  <option value="lime">Lime</option>
+  <option selected value="coconut">Coconut</option>
+  <option value="mango">Mango</option>
+</select>
+```
+Note that the Coconut option is initially selected, because of the `selected` attribute. React, instead of using this `selected` attribute, uses a `value` attribute on the root `select` tag. This is more convenient in a controlled component because you only need to update it in one place. For example:
+
+```javascript
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+**3. How can you select multiple options in a React select?**
+
+You can pass an array into the `value` attribute, allowing you to select multiple options in a `select` tag.
+
+```javascript
+<select multiple={true} value={['B', 'C']}>
+```
+
+**4. Why is the file tag considered to be an uncontrolled component?**
+
+Because its value is **read-only**, it is an uncontrolled component in React. 
+
+In HTML, an `<input type="file">` lets the user choose one or more files from their device storage to be uploaded to a server or manipulated by JavaScript via the File API.
+
+**5. What is a popular library for a fully-fledged solution of handling forms in React?**
+
+Formik - it is a complete solution including validation, keeping track of the visited fields, and handling form submission, etc.
+
+**6. What is an alternative to controlled components?**
+
+Uncontrolled components (though controlled are recommended).
+
+It can sometimes be tedious to use controlled components, because you need to write an event handler for every way your data can change and pipe all of the input state through a React component. This can become particularly annoying when you are converting a preexisting codebase to React, or integrating a React application with a non-React library. In these situations, you might want to check out uncontrolled components, an alternative technique for implementing input forms.
+
+**7. What would prevent a user from changing an input on a controlled component?**
+
+Specifying the value prop on a controlled component prevents the user from changing the input unless you desire so. 
+
+**8. What is one way of handling multiple inputs?**
+
+When you need to handle multiple controlled input elements, you can add a name attribute to each element and let the handler function choose what to do based on the value of event.target.name.
+
+```javascript
+class Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isGoing: true,
+      numberOfGuests: 2
+    };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Is going:
+          <input
+            name="isGoing"
+            type="checkbox"
+            checked={this.state.isGoing}
+            onChange={this.handleInputChange} />
+        </label>
+        <br />
+        <label>
+          Number of guests:
+          <input
+            name="numberOfGuests"
+            type="number"
+            value={this.state.numberOfGuests}
+            onChange={this.handleInputChange} />
+        </label>
+      </form>
+    );
+  }
+}
+```
+
+## Lifting State Up
+
+**1. What is the recommended practice when several components need to reflect the same changing data?**
+
+Lifting the shared state up to their closest common ancestor. 
+
+There should be a single “source of truth” for any data that changes in a React application. Usually, the state is first added to the component that needs it for rendering. Then, if other components also need it, you can lift it up to their closest common ancestor. Instead of trying to sync the state between different components, you should rely on the top-down data flow.
+
+**2. What is a downside of lifting state up?**
+
+Lifting state involves writing more “boilerplate” code than two-way binding approaches.
+
+**3. What is a benefit of lifting state up?**
+
+It takes less work to find and isolate bugs. Since any state “lives” in some component and that component alone can change it, the surface area for bugs is greatly reduced. Additionally, you can implement any custom logic to reject or transform user input.
+
+
+
+## Composition vs Inheritance
+
+**1. What is the suggestion for reusing non-UI functionality between components?**
+
+Extracting it into a separate JavaScript module. The components may import it and use that function, object, or a class, without extending it.
+
+**2. What is composition used for in lieu of?**
+
+It is used instead of inheritance in React.
+
+**3. What is containment?**
+
+Some components don’t know their children ahead of time. This is especially common for components like Sidebar or Dialog that represent generic “boxes”.
+
+We recommend that such components use the special children prop to pass children elements directly into their output. This lets other components pass arbitrary children to them by nesting the JSX.
+
+```javascript
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        Welcome
+      </h1>
+      <p className="Dialog-message">
+        Thank you for visiting our spacecraft!
+      </p>
+    </FancyBorder>
+  );
+}
+```
+
+**4. What is specialization?**
+
+Sometimes we think about components as being “special cases” of other components. For example, we might say that a WelcomeDialog is a special case of Dialog.
+
+In React, this is also achieved by composition, where a more “specific” component renders a more “generic” one and configures it with props:
+
+```javascript
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <Dialog
+      title="Welcome"
+      message="Thank you for visiting our spacecraft!" />
+  );
+}
+```
+
 ## Resources
 1. https://reactjs.org/docs/faq-internals.html#what-is-the-virtual-dom
-2. https://www.interviewbit.com/react-interview-questions/ - Up to Q5
+2. https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
+3. https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318
+4. https://formik.org/
+5. https://www.interviewbit.com/react-interview-questions/ - Up to Q5
