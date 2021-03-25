@@ -571,6 +571,46 @@ This is why state is often called local or encapsulated. It is not accessible to
 
 A component may choose to pass its state down as props to its child components. The child will not know it was a state (ex. `<FormattedDate date={this.state.date} />`).
 
+**7. What is the best way to set the state back to the initial state?**
+
+```javascript
+import React, { Component } from 'react'
+class MyComponent extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      inputVal: props.inputValue
+    }
+    // preserve the initial state in a new object
+    this.baseState = this.state 
+  }
+  resetForm = () => {
+    // this resets by setting it back to the baseState
+    this.setState(this.baseState)
+  }
+  submitForm = () => {
+    // submit the form logic
+  }
+  updateInput = val => this.setState({ inputVal: val })
+  render() {
+    return (
+      <form>
+        <input
+          onChange={this.updateInput}
+          type="text
+          value={this.state.inputVal} />
+        <button
+          onClick={this.resetForm}
+          type="button">Cancel</button>
+        <button
+          onClick={this.submitForm}
+          type="submit">Submit</button>
+      </form>
+    )
+  }
+}
+```
+
 ## Handling Events
 
 **1. What are some differences between handling events in DOM elements vs React elements?**
@@ -1156,4 +1196,5 @@ function WelcomeDialog() {
 2. https://www.digitalocean.com/community/tutorials/7-ways-to-implement-conditional-rendering-in-react-applications
 3. https://robinpokorny.medium.com/index-as-a-key-is-an-anti-pattern-e0349aece318
 4. https://formik.org/
-5. https://www.interviewbit.com/react-interview-questions/ - Up to Q5
+5. https://medium.com/@justintulk/best-practices-for-resetting-an-es6-react-components-state-81c0c86df98d
+6. https://www.interviewbit.com/react-interview-questions/ - Up to Q5
