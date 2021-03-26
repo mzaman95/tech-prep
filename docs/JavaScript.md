@@ -1,4 +1,6 @@
-# Maps
+# JavaScript
+
+## Maps
 
 **1. How do maps work?** 
 
