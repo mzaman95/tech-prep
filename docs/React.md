@@ -2,7 +2,7 @@
 
 ## General Questions
 
-**1. What are some advantages of using React?**  
+#### What are some advantages of using React? 
 
 - **Virtual DOM** React uses a Virtual DOM to render the view. As the name suggests, the Virtual DOM is a virtual representation of the real DOM. Each time the data changes in a React app, a new Virtual DOM gets created. Creating a Virtual DOM is much faster than rendering the UI inside the browser. Therefore, with the use of Virtual DOM, the efficiency of the app improves.  
   
@@ -14,7 +14,7 @@
 
 - **Huge Ecosystem of Libraries to Choose From**  React provides you the freedom to choose the tools, libraries, and architecture for developing an application based on your requirements.  
 
-**2. Describe the thought process when building an application with React.**
+#### Describe the thought process when building an application with React.
 
 1. **Break the UI into a component hierarchy.** The first thing you’ll want to do is to draw boxes around every component (and subcomponent) in the mock and give them all names. To decide what should be its own component: use the same techniques for deciding if you should create a new function or object. One such technique is the **single responsibility principle**, that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents.Separate your UI into components, where each component matches one piece of your data model.
 2. **Build a Static Version in React.** Create a version with only props and no state. In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up and write tests as you build. At the end of this step, you’ll have a library of reusable components that render your data model. The components will only have `render()` methods since this is a static version of your app.
@@ -24,18 +24,24 @@
 
 ## JSX
 
-**1. What does JSX stand for?** JavaScript XML
+#### What does JSX stand for?
 
-**2. What is JSX?** It is a syntax extension to JS that produces React “elements”. 
+JavaScript XML
 
-**3. What does JSX allow us to do?** 
+#### What is JSX?
+
+It is a syntax extension to JS that produces React “elements”. 
+
+#### What does JSX allow us to do?
 
 It allows us to write HTML-like code inside JavaScript and place them in the DOM without using functions like `appendChild( )` or `createElement( )`.
 As stated in the official docs of React, JSX provides syntactic sugar for `React.createElement(component, props, ...children)` function.
 
-**4. Can React applications be written without JSX?** Yes
+#### Can React applications be written without JSX?
 
-**5. Give a code example of using JSX vs. not using JSX.** 
+Yes
+
+#### Give a code example of using JSX vs. not using JSX. 
 
 Without using JSX, we would have to create an element by the following process: 
 ```javascript
@@ -53,7 +59,7 @@ const container = (
 ReactDOM.render(container,rootElement);
 ```
 
-**6. How can you embed expressions in JSX?** 
+#### How can you embed expressions in JSX?
 
 You can put any valid JavaScript expression inside the curly braces in JSX.
 
@@ -80,11 +86,12 @@ ReactDOM.render(
 );
 ```
 
-**7. What are some best practices for JSX?**
+#### What are some best practices for JSX?
+
 - Split JSX over multiple lines for readability.
 - It is recommend to wrap it in parentheses to avoid the pitfalls of automatic semicolon insertion.
 
-**8. After compilation, what does JSX evaluate to?**
+#### After compilation, what does JSX evaluate to?
 
 After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects.
 
@@ -100,19 +107,19 @@ function getGreeting(user) {
 }
 ```
 
-**9. How can you specify attributes with JSX?** 
+#### How can you specify attributes with JSX?
 
 You can either:
 1. Use quotes for string values (ex. `const element = <div tabIndex="0"></div>;` OR
 2. Use curly braces for expressions (ex. `const element = <img src={user.avatarUrl}></img>;`)
 
-**10. How does JSX differ from HTML when specifying attribute names?**
+#### How does JSX differ from HTML when specifying attribute names?
 
 React DOM uses `camelCase` property naming convention instead of HTML attribute names.
 
 For example, `class` becomes `className` in JSX, and `tabindex` becomes `tabIndex`.
 
-**11. If a tag is empty, can you close it immediately in JSX?**
+#### If a tag is empty, can you close it immediately in JSX?
 
 Yes, you may close it immediately with `/>`, like XML.
 
@@ -121,7 +128,9 @@ Example:
 const element = <img src={user.avatarUrl} />;
 ```
 
-**12. Can JSX tags contain children?** Yes
+#### Can JSX tags contain children?
+
+Yes
 
 Example: 
 ```javascript
@@ -133,7 +142,7 @@ const element = (
 );
 ```
 
-**13. How does JSX prevent injection attacks?**
+#### How does JSX prevent injection attacks?
 
 By default, React DOM escapes any values embedded in JSX before rendering them. Thus it ensures that you can never inject anything that’s not explicitly written in your application. Everything is converted to a string before being rendered. This helps prevent XSS (cross-site-scripting) attacks.
 
@@ -146,13 +155,13 @@ const element = <h1>{title}</h1>;
 
 ## Elements
 
-**1. What are React elements?**
+#### What are React elements?
 
 Elements are the smallest building blocks of React apps.
 
 An element describes what you want to see on the screen (ex. `const element = <h1>Hello, world</h1>;`) React reads these objects and uses them to construct the DOM and keep it up to date.
 
-**2. What role does React.createElement() play?**
+#### What role does React.createElement() play?
 
 Babel compiles JSX down to `React.createElement()` calls.
 
@@ -188,15 +197,15 @@ const element = {
 };
 ```
 
-**3. How do elements differ from components?**
+#### How do elements differ from components?
 
 Elements are what components are “made of”.
 
-**4. How many root DOM nodes does a typical application have?**
+#### How many root DOM nodes does a typical application have?
 
 Applications built with just React usually have a single root DOM node. If you are integrating React into an existing app, you may have as many isolated root DOM nodes as you like.
 
-**5. How do you render a React element on the DOM?** 
+#### How do you render a React element on the DOM? 
 
 To render a React element into a root DOM node, pass both to `ReactDOM.render()`.
 
@@ -207,31 +216,31 @@ ReactDOM.render(element, document.getElementById('root'));
 
 In practice, most React apps only call `ReactDOM.render()` once.
 
-**6. What is an immutable object?**
+#### What is an immutable object?
 
 An object whose state cannot be modified after it is created.
 
-**7. Are React object mutable or immutable? Explain.** 
+#### Are React object mutable or immutable? Explain.
 
 React elements are **immutable**. Once you create an element, you can’t change its children or attributes. An element is like a single frame in a movie: it represents the UI at a certain point in time.
 
-**8. What is the only way to update the UI?** 
+#### What is the only way to update the UI?
 
 By creating a new element, and passing it to `ReactDOM.render()`.
 
-**9. How does React decide what to update in the DOM?**
+#### How does React decide what to update in the DOM?
 
 React DOM compares the element and its children to the previous one, and only applies the DOM updates necessary to bring the DOM to the desired state.
 
 ## Virtual DOM
 
-**1. What is the Virtual DOM? How does React use the Virtual DOM to render the UI?** 
+#### What is the Virtual DOM? How does React use the Virtual DOM to render the UI?
 
 The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called **reconciliation**.   
 
 ![virtual-dom](img/virtual-dom.png)
 
-**2. Why was the Virtual DOM introduced?** 
+#### Why was the Virtual DOM introduced?
 
 DOM manipulation is an integral part of any web application, but DOM manipulation is quite slow when compared to other operations in JavaScript.  
 
@@ -241,7 +250,7 @@ For example, consider a list that is being rendered inside the DOM. If one of th
 
 To address the problem of inefficient updating, the React team introduced the concept of virtual DOM.
 
-**3. How does the Virtual DOM work?** 
+#### How does the Virtual DOM work?
 
 For every DOM object, there is a corresponding virtual DOM object(copy), which has the same properties.
 
@@ -253,19 +262,19 @@ React uses two virtual DOMs to render the user interface. One of them is used to
 Whenever the virtual DOM gets updated, React compares the two virtual DOMs and gets to know about which virtual DOM objects were updated.
 After knowing which objects were updated, React renders only those objects inside the real DOM instead of rendering the complete real DOM. This way, with the use of virtual DOM, react solves the problem of inefficient updating.
 
-**4. Is updating the Virtual DOM object inefficient?**
+#### Is updating the Virtual DOM object inefficient?
 
 No, updating the virtual DOM is much faster than updating the real DOM since we are just updating the blueprint of the real DOM.
 
 ## Components and Props
 
-**1. What are Components in React?**
+#### What are Components in React?
 
 Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. 
 
 Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
 
-**2. What are props?**
+#### What are props?
 
 Elements not only can represent DOM elements, but also user-defined components. When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object **“props”**.
 
@@ -281,17 +290,17 @@ ReactDOM.render(
 );
 ```
 
-**3. What is the expected letter-casing of a component?** 
+#### What is the expected letter-casing of a component?
 
 Always start with a capital letter. 
 
 This is because React treats components starting with lowercase letters as DOM tags. For example, `<div />` represents an HTML div tag, but `<Welcome />` represents a component and requires Welcome to be in scope.
 
-**4. How do you determine good candidates to be extracted out as separate components?**
+#### How do you determine good candidates to be extracted out as separate components?
 
 A good rule of thumb is that if a part of your UI is used several times (Button, Panel, Avatar), or is complex enough on its own (App, FeedStory, Comment), it is a good candidate to be extracted to a separate component.
 
-**5. What are pure functions vs. impure functions?**
+#### What are pure functions vs. impure functions?
 
 **Pure functions** do not attempt to change their inputs, and always return the same result for the same inputs.
 
@@ -308,11 +317,11 @@ function withdraw(account, amount) {
 }
 ```
 
-**6. What is the most important rule React has with regards to props?** 
+#### What is the most important rule React has with regards to props?
 
 Props are read-only. All React components must act like pure functions with respect to their props.
 
-**7. What can be done in React as a workaround to having read-only props?**
+#### What can be done in React as a workaround to having read-only props?
 
 State can be utilized. State allows React components to change their output over time in response to user actions, network responses, and anything else, without violating this rule.
 
@@ -320,17 +329,23 @@ State is similar to props, but it is private and fully controlled by the compone
 
 ## Functional vs. Class Components
 
-**1. What is a functional component?**
+#### What is a functional component?
 
 A JavaScript function that accepts props (properties) and returns a React element. These are valid React components.
+
+Functional components in React can look 2 ways:
 
 ```javascript
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
+
+const Welcome = (props) => {
+  return <h1>Hello, {props.name}</h1>;
+}
 ```
 
-**2. What is a class component?** 
+#### What is a class component?
 
 An ES6 class that extends from React.Component. This is also a valid React component.
 
@@ -342,11 +357,11 @@ class Welcome extends React.Component {
 }
 ```
 
-**3. How did the 2 compare before the introduction of hooks?** 
+#### How did the 2 compare before the introduction of hooks? 
 
 Functional components were stateless components whereas class components were stateful.
 
-**4. What are some ways the 2 compare?** 
+#### What are some ways the 2 compare?
 
 | Topic | Functional Component | Class Component |
 |:--: | :--| :--| 
@@ -390,7 +405,7 @@ class Card extends React.Component{
 }
 ```
 
-**5. Give an example of how props are handled by functional components vs class components.**
+#### Give an example of how props are handled by functional components vs class components.
 
 If given the following prop:
 
@@ -425,7 +440,7 @@ class StudentInfo extends React.Component{
 }
 ```
 
-**6. Give an example of how state is handled in a functional component vs. a class component.**
+#### Give an example of how state is handled in a functional component vs. a class component.
 
 State in a Functional Component:
 ```javascript
@@ -478,15 +493,15 @@ class ClassRoom extends React.Component{
 
 ## State and Lifecycle Methods
 
-**1. What is mounting?**
+#### What is mounting?
 
 Its when a component is rendered to the DOM for the first time.
 
-**2. What is unmounting?**
+#### What is unmounting?
 
 Its whenever the DOM produced by a component is removed.
 
-**3. What are 3 important rules about `setState()`?**
+#### What are 3 important rules about `setState()`?
 
 1) Do not modify state directly.
 
@@ -555,23 +570,23 @@ componentDidMount() {
   }
 ```
 
-**4. In which direction does data flow in a React app?**
+#### In which direction does data flow in a React app?
 
 React apps have a “top-down” or “unidirectional” data flow. 
 
 Any state is always owned by some specific component, and any data or UI derived from that state can only affect components “below” them in the tree.
 
-**5. Why is state called local or encapsulated?** 
+#### Why is state called local or encapsulated?
 
 Neither parent nor child components can know if a certain component is stateful or stateless, and they shouldn’t care whether it is defined as a function or a class.
 
 This is why state is often called local or encapsulated. It is not accessible to any component other than the one that owns and sets it.
 
-**6. How can a component pass its state to child components?**
+#### How can a component pass its state to child components?
 
 A component may choose to pass its state down as props to its child components. The child will not know it was a state (ex. `<FormattedDate date={this.state.date} />`).
 
-**7. What is the best way to set the state back to the initial state?**
+#### What is the best way to set the state back to the initial state?
 
 ```javascript
 import React, { Component } from 'react'
@@ -613,7 +628,7 @@ class MyComponent extends Component {
 
 ## Handling Events
 
-**1. What are some differences between handling events in DOM elements vs React elements?**
+#### What are some differences between handling events in DOM elements vs React elements?
 
 | React Elements | DOM Elements |
 |:-- |:--|
@@ -653,7 +668,7 @@ function ActionLink() {
 }
 ```
 
-**2. What is the common pattern followed for event handlers in React in a class component?**
+#### What is the common pattern followed for event handlers in React in a class component?
 
 When you define a component using an ES6 class, a common pattern is for an event handler to be a method on the class. For example, this Toggle component renders a button that lets the user toggle between “ON” and “OFF” states:
 
@@ -693,7 +708,7 @@ ReactDOM.render(
 );
 ```
 
-**3. What are 2 alternatives to avoid having to bind this?**
+#### What are 2 alternatives to avoid having to bind this?
 
 1) If you are using the experimental public class fields syntax, you can use class fields to correctly bind callbacks:
 
@@ -736,9 +751,11 @@ class LoggingButton extends React.Component {
 }
 ```
 
-**4. What is the recommended ways of binding?** In the constructor or using the class fields syntax.
+#### What is the recommended ways of binding?
 
-**5. What are 2 ways you can pass arguments to event handlers?**
+In the constructor or using the class fields syntax.
+
+#### What are 2 ways you can pass arguments to event handlers?
 
 1) Using arrow functions.
 2) Using Function.prototype.bind. 
@@ -755,7 +772,7 @@ In both cases, the e argument representing the React event will be passed as a s
 
 ## Conditional Rendering
 
-**1. How can you achieve conditional rendering in React?**
+#### How can you achieve conditional rendering in React?
 
 It is the same as JS. Here are 7 possibilities:
 
@@ -775,7 +792,7 @@ It is the same as JS. Here are 7 possibilities:
 
 Remember that whenever conditions become too complex, it might be a good time to extract a component.
 
-**2. How do you prevent a component from rendering in React?**
+#### How do you prevent a component from rendering in React?
 
 In rare cases you might want a component to hide itself even though it was rendered by another component. To do this return `null` instead of its render output.
 
@@ -795,7 +812,7 @@ function WarningBanner(props) {
 
 ## Lists & Keys
 
-**1. How can you render multiple components from an array?** 
+#### How can you render multiple components from an array? 
 
 You can loop through an array using the JS map function.
 
@@ -836,11 +853,11 @@ ReactDOM.render(
 );
 ```
 
-**2. What is the purpose of keys?**
+#### What is the purpose of keys?
 
 Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity. 
 
-**3. What is the best way to pick a key?**
+#### What is the best way to pick a key?
 
 The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys. 
 
@@ -852,7 +869,7 @@ const todoItems = todos.map((todo) =>
 );
 ```
 
-**4. Why is using item index's not recommended as keys?**
+#### Why is using item index's not recommended as keys?
 
 Its not recommended to use indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state. 
 
@@ -860,15 +877,15 @@ It may break your application and display wrong data!
 
 A key is the only thing React uses to identify DOM elements. What happens if you push an item to the list or remove something in the middle? If the key is same as before React assumes that the DOM element represents the same component as before. But that is no longer true.
 
-**5. What does React use as default as a key?**
+#### What does React use as default as a key?
 
 If you choose not to assign an explicit key to list items then React will default to using indexes as keys.
 
-**6. Do keys need to be unique globally?** 
+#### Do keys need to be unique globally?
 
 No.Keys used within arrays should be unique among their siblings. However they don’t need to be globally unique. We can use the same keys when we produce two different arrays.
 
-**7. How do you pass keys to your components?** 
+#### How do you pass keys to your components? 
 
 Keys serve as a hint to React but they don’t get passed to your components. If you need the same value in your component, pass it explicitly as a prop with a different name. In the example below,  the Post component can read `props.id`, but not `props.key`.
 
@@ -882,7 +899,7 @@ const content = posts.map((post) =>
 ```
 ## Forms
 
-**1. What is a controlled component?**
+#### What is a controlled component?
 
 In HTML, form elements such as `<input>`, `<textarea>`, and `<select>` typically maintain their own state and update it based on user input. In React, mutable state is typically kept in the state property of components, and only updated with `setState()`.
 
@@ -926,7 +943,7 @@ class NameForm extends React.Component {
 }
 ```
 
-**2. How does the textarea tag differ in HTML vs React?**
+#### How does the textarea tag differ in HTML vs React?
 
 In HTML, a `<textarea>` element defines its text by its children:
 
@@ -973,7 +990,7 @@ class EssayForm extends React.Component {
 }
 ```
 
-**2. How does the select tag differ in HTML vs React?**
+#### How does the select tag differ in HTML vs React?
 
 In HTML, `<select>` creates a drop-down list. For example, this HTML creates a drop-down list of flavors:
 
@@ -1025,7 +1042,7 @@ class FlavorForm extends React.Component {
 }
 ```
 
-**3. How can you select multiple options in a React select?**
+#### How can you select multiple options in a React select?
 
 You can pass an array into the `value` attribute, allowing you to select multiple options in a `select` tag.
 
@@ -1033,27 +1050,27 @@ You can pass an array into the `value` attribute, allowing you to select multipl
 <select multiple={true} value={['B', 'C']}>
 ```
 
-**4. Why is the file tag considered to be an uncontrolled component?**
+#### Why is the file tag considered to be an uncontrolled component?
 
 Because its value is **read-only**, it is an uncontrolled component in React. 
 
 In HTML, an `<input type="file">` lets the user choose one or more files from their device storage to be uploaded to a server or manipulated by JavaScript via the File API.
 
-**5. What is a popular library for a fully-fledged solution of handling forms in React?**
+#### What is a popular library for a fully-fledged solution of handling forms in React?
 
 Formik - it is a complete solution including validation, keeping track of the visited fields, and handling form submission, etc.
 
-**6. What is an alternative to controlled components?**
+#### What is an alternative to controlled components?
 
 Uncontrolled components (though controlled are recommended).
 
 It can sometimes be tedious to use controlled components, because you need to write an event handler for every way your data can change and pipe all of the input state through a React component. This can become particularly annoying when you are converting a preexisting codebase to React, or integrating a React application with a non-React library. In these situations, you might want to check out uncontrolled components, an alternative technique for implementing input forms.
 
-**7. What would prevent a user from changing an input on a controlled component?**
+#### What would prevent a user from changing an input on a controlled component?
 
 Specifying the value prop on a controlled component prevents the user from changing the input unless you desire so. 
 
-**8. What is one way of handling multiple inputs?**
+#### What is one way of handling multiple inputs?
 
 When you need to handle multiple controlled input elements, you can add a name attribute to each element and let the handler function choose what to do based on the value of event.target.name.
 
@@ -1107,33 +1124,31 @@ class Reservation extends React.Component {
 
 ## Lifting State Up
 
-**1. What is the recommended practice when several components need to reflect the same changing data?**
+#### What is the recommended practice when several components need to reflect the same changing data?
 
 Lifting the shared state up to their closest common ancestor. 
 
 There should be a single “source of truth” for any data that changes in a React application. Usually, the state is first added to the component that needs it for rendering. Then, if other components also need it, you can lift it up to their closest common ancestor. Instead of trying to sync the state between different components, you should rely on the top-down data flow.
 
-**2. What is a downside of lifting state up?**
+#### What is a downside of lifting state up?
 
 Lifting state involves writing more “boilerplate” code than two-way binding approaches.
 
-**3. What is a benefit of lifting state up?**
+#### What is a benefit of lifting state up?
 
 It takes less work to find and isolate bugs. Since any state “lives” in some component and that component alone can change it, the surface area for bugs is greatly reduced. Additionally, you can implement any custom logic to reject or transform user input.
 
-
-
 ## Composition vs Inheritance
 
-**1. What is the suggestion for reusing non-UI functionality between components?**
+#### What is the suggestion for reusing non-UI functionality between components?
 
 Extracting it into a separate JavaScript module. The components may import it and use that function, object, or a class, without extending it.
 
-**2. What is composition used for in lieu of?**
+#### What is composition used for in lieu of?
 
 It is used instead of inheritance in React.
 
-**3. What is containment?**
+#### What is containment?
 
 Some components don’t know their children ahead of time. This is especially common for components like Sidebar or Dialog that represent generic “boxes”.
 
@@ -1162,7 +1177,7 @@ function WelcomeDialog() {
 }
 ```
 
-**4. What is specialization?**
+#### What is specialization?
 
 Sometimes we think about components as being “special cases” of other components. For example, we might say that a WelcomeDialog is a special case of Dialog.
 
@@ -1190,6 +1205,245 @@ function WelcomeDialog() {
   );
 }
 ```
+## Hooks
+
+#### In what React version was hooks introduced?
+
+16.8
+
+#### What are hooks?
+
+Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes. They let you use state and other React features without writing a class.
+
+React provides a few built-in Hooks like `useState`. You can also create your own Hooks to reuse stateful behavior between different components.
+
+#### Will class components be deprecated?
+
+No. Class components will still be supported. Hooks work side-by-side with existing code so you can adopt them gradually.
+
+#### What are some recommendations when it comes to adoption of hooks in a React app?
+
+- Gradual adoption strategy
+  - It is recommended to avoid any “big rewrites”, especially for existing, complex class components. 
+  - It’s best to practice using Hooks in new and non-critical components first.
+
+#### What was the motivation behind hooks?
+
+1. It’s hard to reuse stateful logic between components. Hooks allow you to reuse stateful logic without changing your component hierarchy. 
+2. Complex components become hard to understand. We’ve often had to maintain components that started out simple but grew into an unmanageable mess of stateful logic and side effects. Each lifecycle method often contains a mix of unrelated logic. In many cases it’s not possible to break these components into smaller ones because the stateful logic is all over the place. It’s also difficult to test them. This is one of the reasons many people prefer to combine React with a separate state management library. However, that often introduces too much abstraction, requires you to jump between different files, and makes reusing components more difficult.Hooks let you split one component into smaller functions based on what pieces are related (such as setting up a subscription or fetching data), rather than forcing a split based on lifecycle methods. 
+3. Classes confuse both people and machines. In addition to making code reuse and code organization more difficult, we’ve found that classes can be a large barrier to learning React. You have to understand how this works in JavaScript, which is very different from how it works in most languages. You have to remember to bind the event handlers. Without unstable syntax proposals, the code is very verbose. Hooks let you use more of React’s features without classes.
+
+#### What does it mean that React Hooks are "backwards compatible"?
+
+Hooks don’t contain any breaking changes.
+
+#### Describe the state hook.
+
+`useState`
+- returns: the current state value and a function that lets you update it. 
+- You can call this function from an event handler or somewhere else. 
+- It’s similar to `this.setState` in a class, except it doesn’t merge the old and new state together. 
+- The only argument to `useState` is the initial state.
+- Note that unlike `this.state`, the state here doesn’t have to be an object — although it can be if you want.
+- The initial state argument is only used during the first render.
+
+```javascript
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+- In a class component, the state is accessed as `<p>You clicked {this.state.count} times</p>` but with useState, you can access it directly `<p>You clicked {count} times</p>`.
+- In a class, we need to call `this.setState()` to update the state. In a function, we already have `setCount` and `count` as variables, for example, so we don’t need `this`.
+
+```javascript
+// In a class:
+<button onClick={() => this.setState({ count: this.state.count + 1 })}>
+    Click me
+</button>
+
+// In a function:
+ <button onClick={() => setCount(count + 1)}>
+    Click me
+  </button>
+```
+
+#### What do the square bracket in useState declaration mean?
+
+```javascript
+const [fruit, setFruit] = useState('banana');
+```
+
+This JavaScript syntax is called “array destructuring”. It means that we’re making two new variables fruit and setFruit, where fruit is set to the first value returned by useState, and setFruit is the second. It is equivalent to this code:
+
+```javascript
+var fruitStateVariable = useState('banana'); // Returns a pair
+var fruit = fruitStateVariable[0]; // First item in a pair
+var setFruit = fruitStateVariable[1]; // Second item in a pair
+```
+
+The first item is the current value, and the second is a function that lets us update it. Using `[0]` and `[1]` to access them is a bit confusing because they have a specific meaning. This is why we use array destructuring instead.
+
+#### Can you declare multiple state variables in a single component? 
+
+Yes, you can use the State Hook more than once in a single component.
+
+```javascript
+function ExampleWithManyStates() {
+  // Declare multiple state variables!
+  const [age, setAge] = useState(42);
+  const [fruit, setFruit] = useState('banana');
+  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+  // ...
+}
+```
+
+#### What are "side effects"? 
+
+Things like data fetching, subscriptions, or manually changing the DOM from React components before. We call these operations “side effects” (or “effects” for short) because they can affect other components and can’t be done during rendering.
+
+#### Describe the effect hook.
+
+- The Effect Hook, `useEffect`, adds the ability to perform side effects from a function component. 
+- It serves the same purpose as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` in React classes, but unified into a single API. 
+- When you call `useEffect`, you’re telling React to run your “effect” function after flushing changes to the DOM.
+- Effects are declared inside the component so they have access to its props and state. 
+- By default, React runs the effects after every render — including the first render.
+- You can use more than a single effect in a component.
+- Hooks let you organize side effects in a component by what pieces are related (such as adding and removing a subscription), rather than forcing a split based on lifecycle methods.
+- Effects may also optionally specify how to “clean up” after them by returning a function.
+
+```javascript
+function FriendStatusWithCounter(props) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  const [isOnline, setIsOnline] = useState(null);
+  /*
+   React would unsubscribe from our ChatAPI when the component unmounts, as well as before re-running the effect due to a subsequent render. (If you want, there’s a way to tell React to skip re-subscribing if the props.friend.id we passed to ChatAPI didn’t change.)
+  */ 
+  useEffect(() => {
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+
+  function handleStatusChange(status) {
+    setIsOnline(status.isOnline);
+  }
+  // ...
+```
+
+#### What are the rules of hooks?
+
+Hooks are JavaScript functions, but they impose two additional rules:
+
+- Only call Hooks **at the top level**. Don’t call Hooks inside loops, conditions, or nested functions.
+- Only call Hooks **from React function components**. Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks — your own custom Hooks.)
+
+#### Describe custom hooks.
+
+- Custom Hooks are more of a convention than a feature.
+- If a function’s name starts with ”use” and it calls other Hooks, we say it is a custom Hook.
+- The `useSomething` naming convention is how our linter plugin is able to find bugs in the code using Hooks.
+- The state of each component that calls a custom hook is completely independent. Hooks are a way to reuse stateful logic, not state itself. In fact, each call to a Hook has a completely isolated state — so you can even use the same custom Hook twice in one component.
+
+#### When do you use custom hooks?
+
+Sometimes, we want to reuse some stateful logic between components. Traditionally, there were two popular solutions to this problem: higher-order components and render props. Custom Hooks let you do this, but without adding more components to your tree.
+
+#### Give an example of a custom hook.
+
+A `FriendStatus` component that calls the `useState` and `useEffect` Hooks to subscribe to a friend’s online status. Let’s say we also want to reuse this subscription logic in another component.
+
+First, we’ll extract this logic into a custom Hook called `useFriendStatus`:
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+// It takes friendID as an argument, and returns whether our friend is online.
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  function handleStatusChange(status) {
+    setIsOnline(status.isOnline);
+  }
+
+  useEffect(() => {
+    ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+    };
+  });
+
+  return isOnline;
+}
+```
+
+Now we can use it from both components:
+
+```javascript
+function FriendStatus(props) {
+  const isOnline = useFriendStatus(props.friend.id);
+
+  if (isOnline === null) {
+    return 'Loading...';
+  }
+  return isOnline ? 'Online' : 'Offline';
+}
+```
+
+```javascript
+function FriendListItem(props) {
+  const isOnline = useFriendStatus(props.friend.id);
+
+  return (
+    <li style={{ color: isOnline ? 'green' : 'black' }}>
+      {props.friend.name}
+    </li>
+  );
+}
+```
+
+#### What does the useContext hook do?
+
+It lets you subscribe to React context without introducing nesting.
+
+```javascript
+function Example() {
+  const locale = useContext(LocaleContext);
+  const theme = useContext(ThemeContext);
+  // ...
+}
+```
+
+#### What does the useReducer hook do?
+
+It lets you manage local state of complex components with a reducer.
+
+```javascript
+function Todos() {
+  const [todos, dispatch] = useReducer(todosReducer);
+  // ...
+```
+
+
+
 
 ## Resources
 1. https://reactjs.org/docs/faq-internals.html#what-is-the-virtual-dom

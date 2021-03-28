@@ -1,18 +1,22 @@
 /**
- * @param {string} haystack
- * @param {string} needle
- * @return {number}
+ * @param {number} n
+ * @return {boolean}
  */
- var strStr = function(haystack, needle) {
+var isPowerOfThree = function (n) {
 
-  if (needle === "") return 0;
+  if (n < 1) {
+    return false;
+}
 
-  if (needle === haystack) return 0;
-
-  
-    
+  while (n % 3 == 0) {
+    n /= 3;
+  }
+  return n == 1;
 };
 
-console.log(strStr("hello", "ll")); // => 2
-console.log(strStr("aaaaa", "bba")); // =>  -1
-console.log(strStr("","")); // => 0
+isPowerOfThree(27); // => true
+isPowerOfThree(0); // => false
+isPowerOfThree(9); // => true
+isPowerOfThree(45); // => false
+
+// https://stackoverflow.com/questions/1804311/how-to-check-if-an-integer-is-a-power-of-3

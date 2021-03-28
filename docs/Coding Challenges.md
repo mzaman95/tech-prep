@@ -110,7 +110,7 @@ console.log(firstUniqChar("")); // => -1
 
 ```
 
-## Valid Anagram
+### Valid Anagram
 
 Given two strings s and t, return true if t is an anagram of s, and false otherwise.
 
@@ -162,4 +162,61 @@ console.log(isPalindrome("race a car")); // => false
 console.log(isPalindrome("a.")); // => false
 
 console.log(isPalindrome("Marge, let's \"[went].\" I await {news} telegram.")); // => true
+```
+
+## Math
+
+### FizzBuzz 
+
+Write a program that outputs the string representation of numbers from 1 to n.
+
+But for multiples of three it should output “Fizz” instead of the number and for the multiples of five output “Buzz”. For numbers which are multiples of both three and five output “FizzBuzz”.
+
+```javascript
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var fizzBuzz = function (n) {
+  // initialize empty array
+  let fizzBuzzStringArray = [];
+
+  // loops through between 1 and n 
+  for (let i = 1; i <= n; i++) {
+    // if its a multiple of 3 & 5
+    if (i % 3 === 0 && i % 5 === 0) {
+      fizzBuzzStringArray.push("FizzBuzz");
+    } else if (i % 3 === 0) {
+      // multiple of 3
+      fizzBuzzStringArray.push("Fizz");
+    } else if (i % 5 === 0) {
+      // multiple of 5
+      fizzBuzzStringArray.push("Buzz");
+    } else fizzBuzzStringArray.push(i.toString());
+  }
+  console.log(fizzBuzzStringArray);
+
+  return fizzBuzzStringArray;
+};
+
+fizzBuzz(15); // =>
+/*
+ [
+  "1",
+  "2",
+  "Fizz",
+  "4",
+  "Buzz",
+  "Fizz",
+  "7",
+  "8",
+  "Fizz",
+  "Buzz",
+  "11",
+  "Fizz",
+  "13",
+  "14",
+  "FizzBuzz"
+]
+*/
 ```
